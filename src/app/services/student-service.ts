@@ -1,0 +1,15 @@
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { MOCKUP_STUDENT_DATA, Student } from '../classes/student';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class StudentService {
+
+  // R: READ - get all student data
+  public getAll(): Observable<Student[]> {
+    return of(MOCKUP_STUDENT_DATA);
+  }
+  
+}
