@@ -7,6 +7,12 @@ import { MOCKUP_STUDENT_DATA, Student } from '../classes/student';
 })
 export class StudentService {
 
+  // C: CREATE - add new student
+  public create(student: Student): Observable<any> {
+    MOCKUP_STUDENT_DATA.push(student);
+    return of(MOCKUP_STUDENT_DATA);
+  }
+
   // R: READ - get all student data
   public getAll(): Observable<Student[]> {
     return of(MOCKUP_STUDENT_DATA);
