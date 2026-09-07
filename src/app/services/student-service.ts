@@ -17,5 +17,25 @@ export class StudentService {
   public getAll(): Observable<Student[]> {
     return of(MOCKUP_STUDENT_DATA);
   }
-  
+
+  // U: UPDATE
+  public update(student: Student, updatedStudent: Student): Observable<any> {
+    // find postion to update
+    const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(student);
+    console.log('update position: ' + updatedPosition);
+    // update data
+    MOCKUP_STUDENT_DATA[updatedPosition] = {
+      studentId: updatedStudent.studentId,
+      studentName: updatedStudent.studentName,
+      department: updatedStudent.department,
+      faculty: updatedStudent.faculty,
+      email: updatedStudent.email,
+      tel: updatedStudent.tel,
+      picture: updatedStudent.picture,
+      password: '*******'
+    };
+    // return result
+    return of({result: true});
+  }
+
 }

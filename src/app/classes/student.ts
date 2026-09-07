@@ -11,7 +11,7 @@ export interface Student {
 
 export const MOCKUP_STUDENT_DATA: Student[] = [
     {
-        studentId: '67131001', 
+        studentId: '671103001', 
         studentName: 'Ant',
         department: 'Software Engineering',
         faculty: 'Engineering and Technology',
@@ -21,7 +21,7 @@ export const MOCKUP_STUDENT_DATA: Student[] = [
         password: 'student1'
     },
     {
-        studentId: '67131002', 
+        studentId: '671103002', 
         studentName: 'Bat',
         department: 'Electrical Engineering',
         faculty: 'Engineering and Technology',
@@ -31,7 +31,7 @@ export const MOCKUP_STUDENT_DATA: Student[] = [
         password: 'student2'
     },
     {
-        studentId: '67131003', 
+        studentId: '671103003', 
         studentName: 'Cat',
         department: 'Industrial Engineering',
         faculty: 'Engineering and Technology',

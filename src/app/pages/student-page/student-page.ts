@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student-service';
 import { Student } from '../../classes/student';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { email } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-student-page',
@@ -14,13 +15,15 @@ export class StudentPage implements OnInit {
   studentForm!: FormGroup;
 
   students: Student[] = [];
+  student: Student | undefined;
+  isEdit: boolean = false;
 
   ngOnInit(): void {
     this.getData();
     this.initForm();
   }
 
-  constructor(private studentService: StudentService, private fb: FormBuilder) {}
+  constructor(private studentService: StudentService, private fb: FormBuilder) { }
 
   private initForm(): void {
     this.studentForm = this.fb.group({
@@ -49,9 +52,41 @@ export class StudentPage implements OnInit {
   onSubmit(): void {
     const studentData: Student = this.studentForm.value;
     console.log(studentData);
-    this.studentService.create(studentData).subscribe(res => {
-      this.students = res;
+    if (this.isEdit) { // update
+      this.studentService.update(this.student!, studentData).subscribe(res => {
+        if (res.result) {
+          this.getData();
+          alert('OK');
+        } else {
+          alert('ERROR');
+        }
+      });
+    } else { // add
+      this.studentService.create(studentData).subscribe(res => {
+        this.students = res;
+        this.resetForm();
+      });
+    }
+  }
+
+  selectStudent(selectedStudent: Student): void {
+    this.isEdit = true; // change to edit mode
+    this.student = selectedStudent;
+    this.studentForm.patchValue({
+      studentId: selectedStudent.studentId,
+      studentName: selectedStudent.studentName,
+      department: selectedStudent.department,
+      faculty: selectedStudent.faculty,
+      email: selectedStudent.email,
+      tel: selectedStudent.tel,
+      picture: selectedStudent.picture
     });
+  }
+
+  resetForm(): void {
+    this.isEdit = false;
+    this.studentForm.reset();
+    this.getData();
   }
 
 }
