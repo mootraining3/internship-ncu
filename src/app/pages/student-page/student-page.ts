@@ -24,7 +24,7 @@ export class StudentPage implements OnInit {
 
   private initForm(): void {
     this.studentForm = this.fb.group({
-      studentId: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      studentId: ['', [Validators.required, Validators.pattern(/^[0-9]{9}$/)]],
       studentName: ['', Validators.required],
       department: ['', Validators.required],
       faculty: ['', Validators.required],
