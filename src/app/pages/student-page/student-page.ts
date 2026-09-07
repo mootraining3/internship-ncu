@@ -89,4 +89,15 @@ export class StudentPage implements OnInit {
     this.getData();
   }
 
+  deleteStudent(deletedStudent: Student): void {
+    if (confirm('Are you sure to delete ' + deletedStudent.studentId)) {
+      // DELETE STUDENT DATA
+      this.studentService.delete(deletedStudent).subscribe(res => {
+        if (res.result) {
+          this.resetForm();
+        }
+      });
+    }
+  }
+
 }

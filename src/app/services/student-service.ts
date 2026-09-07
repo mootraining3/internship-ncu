@@ -38,4 +38,14 @@ export class StudentService {
     return of({result: true});
   }
 
+  // D: DELETE
+  public delete(deletedStudent: Student): Observable<any> {
+    // FIND POSITION to DELETE
+    const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(deletedStudent);
+    // DELETE
+    MOCKUP_STUDENT_DATA.splice(updatedPosition, 1);
+    // RETURN
+    return of({result: true});
+  }
+
 }
