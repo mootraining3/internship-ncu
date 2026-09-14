@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (student of students; track $index) {
+        @for (student of students; track student.studentId) {
         <tr>
           <td>{{student.studentId}}</td>
           <td>{{student.studentName}}</td>

@@ -43,10 +43,15 @@ export class StudentPage implements OnInit {
   }
 
   private getData(): void {
-    this.studentService.getAll().subscribe(res => {
-      console.log(res);
-      this.students = res;
-    });
+    this.studentService.getAll().subscribe({
+    next: (data) => {
+      this.students = data; // 👈 นำข้อมูลที่ได้มาใส่ตัวแปรนี้ เพื่อให้ @for ใน HTML แสดงผล
+      console.log('Students loaded:', this.students);
+    },
+    error: (err) => {
+      console.error('Error loading students:', err);
+    }
+  });
   }
 
   onSubmit(): void {
