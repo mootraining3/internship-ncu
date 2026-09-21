@@ -13,8 +13,9 @@ export class StudentService {
 
   // C: CREATE - add new student
   public create(student: Student): Observable<any> {
-    MOCKUP_STUDENT_DATA.push(student);
-    return of(MOCKUP_STUDENT_DATA);
+    // MOCKUP_STUDENT_DATA.push(student);
+    // return of(MOCKUP_STUDENT_DATA);
+    return this.http.post(this.apiUrl + '/student', student);
   }
 
   // R: READ - get all student data
@@ -37,32 +38,34 @@ export class StudentService {
 
   // U: UPDATE
   public update(student: Student, updatedStudent: Student): Observable<any> {
+    return this.http.put(this.apiUrl + '/student/' + updatedStudent.studentId, updatedStudent);
     // find postion to update
-    const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(student);
-    console.log('update position: ' + updatedPosition);
+    // const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(student);
+    // console.log('update position: ' + updatedPosition);
     // update data
-    MOCKUP_STUDENT_DATA[updatedPosition] = {
-      studentId: updatedStudent.studentId,
-      studentName: updatedStudent.studentName,
-      department: updatedStudent.department,
-      faculty: updatedStudent.faculty,
-      email: updatedStudent.email,
-      tel: updatedStudent.tel,
-      picture: updatedStudent.picture,
-      password: '*******'
-    };
+    // MOCKUP_STUDENT_DATA[updatedPosition] = {
+    //   studentId: updatedStudent.studentId,
+    //   studentName: updatedStudent.studentName,
+    //   department: updatedStudent.department,
+    //   faculty: updatedStudent.faculty,
+    //   email: updatedStudent.email,
+    //   tel: updatedStudent.tel,
+    //   picture: updatedStudent.picture,
+    //   password: '*******'
+    // };
     // return result
-    return of({ result: true });
+    // return of({ result: true });
   }
 
   // D: DELETE
   public delete(deletedStudent: Student): Observable<any> {
     // FIND POSITION to DELETE
-    const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(deletedStudent);
+    // const updatedPosition = MOCKUP_STUDENT_DATA.indexOf(deletedStudent);
     // DELETE
-    MOCKUP_STUDENT_DATA.splice(updatedPosition, 1);
+    // MOCKUP_STUDENT_DATA.splice(updatedPosition, 1);
     // RETURN
-    return of({ result: true });
+    // return of({ result: true });
+    return this.http.delete(this.apiUrl + '/student/' + deletedStudent.studentId);
   }
 
 }

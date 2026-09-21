@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student-service';
 import { Student } from '../../classes/student';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,7 +22,7 @@ export class StudentPage implements OnInit {
     this.initForm();
   }
 
-  constructor(private studentService: StudentService, private fb: FormBuilder) { }
+  constructor(private studentService: StudentService, private fb: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   private initForm(): void {
     this.studentForm = this.fb.group({
@@ -45,6 +45,7 @@ export class StudentPage implements OnInit {
     this.studentService.getAll().subscribe({
     next: (data) => {
       this.students = data; // 👈 นำข้อมูลที่ได้มาใส่ตัวแปรนี้ เพื่อให้ @for ใน HTML แสดงผล
+      this.cdr.detectChanges();
       console.log('Students loaded:', this.students);
     },
     error: (err) => {
@@ -58,7 +59,7 @@ export class StudentPage implements OnInit {
     console.log(studentData);
     if (this.isEdit) { // update
       this.studentService.update(this.student!, studentData).subscribe(res => {
-        if (res.result) {
+        if (res.message === 'Update completed') {
           this.getData();
           alert('OK');
         } else {
@@ -97,8 +98,10 @@ export class StudentPage implements OnInit {
     if (confirm('Are you sure to delete ' + deletedStudent.studentId)) {
       // DELETE STUDENT DATA
       this.studentService.delete(deletedStudent).subscribe(res => {
-        if (res.result) {
+        if (res.message === 'Delete Completed.') {
           this.resetForm();
+          alert('DELETE OK.');
+          this.getData();
         }
       });
     }
