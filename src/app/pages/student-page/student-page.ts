@@ -3,7 +3,6 @@ import { StudentService } from '../../services/student-service';
 import { Student } from '../../classes/student';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { email } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-student-page',
